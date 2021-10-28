@@ -4,6 +4,7 @@ import { ConfigProvider } from "antd";
 import LoginPage from './pages/login/LoginPage';
 
 
+
 @inject('userStore')
 @observer
 class Root extends Component {

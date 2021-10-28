@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './assets/index.css';
+import 'antd/dist/antd.css';
 import reportWebVitals from './reportWebVitals';
 import {CookiesProvider} from 'react-cookie'
 import {Provider} from 'mobx-react'

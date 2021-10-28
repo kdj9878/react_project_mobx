@@ -1,7 +1,6 @@
 import { inject, observer } from 'mobx-react';
 import React, { Component } from 'react';
 import LoginContainer from '../../containers/LoginContainer'
-import 'antd/dist/antd.css';
 import { Alert } from 'antd';
 
 @inject('userStore')

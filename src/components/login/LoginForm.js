@@ -2,16 +2,19 @@ import { Form, Input, Button, Checkbox } from 'antd';
 
 const LoginForm = (props) => {
 
+  
 
   const changeValue = (e) =>{
-    console.log(props.loginUser("a", "b"))
     console.log(e.target.value)
   }
 
-
+  const showProps = () =>{
+    console.log(props)
+  }
 
     return (
-      <Form onSubmit={ (e) => {
+      <Form onSubmit={ (e) => 
+      {
         e.preventDefualt();
         console.log(props)
 
@@ -73,7 +76,7 @@ const LoginForm = (props) => {
             span: 16,
           }}
         >
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" onClick={showProps}>
             로그인
           </Button>
         </Form.Item>

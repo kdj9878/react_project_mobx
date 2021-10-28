@@ -1,25 +1,38 @@
 import { Form, Input, Button, Checkbox } from 'antd';
+import { useEffect } from 'react';
+import fetchLogin from '../../service/fetchLogin';
 
 const LoginForm = (props) => {
 
-  
 
-  const changeValue = (e) =>{
-    console.log(e.target.value)
-  }
+  const userControll = props.userStore
 
-  const showProps = () =>{
+  useEffect( () => {
     console.log(props)
+  })
+
+  const handleFinish = async (values) =>{
+
+    await fetchLogin(values).then(response => {
+      if(response === null) {
+        console.log("모달창이 나오게 할꺼임");
+        console.log(userControll)
+      }
+      else{
+        userControll.setUser(response)  //userStore 저장된 상태 하지만 새로 고침 할 시 사라짐
+      }
+    })
   }
 
+  const handleFinishFailed = (error) =>{
+    console.log(error)
+  }
+
+
+  // antd 3.x 버전의 경우 form.validateFieldAndScroll((err, values) => {})로 접근을 하였지만
+  // antd 4.x 버전의 경우 onFinish(성공한 경우) onFinishFailed(실패한 경우) 로 사용을 한다.
     return (
-      <Form onSubmit={ (e) => 
-      {
-        e.preventDefualt();
-        console.log(props)
-
-
-      }}
+      <Form onFinish={handleFinish} onFinishFailed={handleFinishFailed}
         name="basic"
         labelCol={{
           span: 8,
@@ -35,15 +48,15 @@ const LoginForm = (props) => {
       >
         <Form.Item
           label="ID"
-          name="username"
+          name="id"
           rules={[
             {
               required: true,
-              message: 'Please input your username!',
+              message: '아이디를 입력해주세요.',
             },
           ]}
         >
-          <Input onChange={changeValue} />
+          <Input  />
         </Form.Item>
 
         <Form.Item
@@ -52,11 +65,11 @@ const LoginForm = (props) => {
           rules={[
             {
               required: true,
-              message: 'Please input your password!',
+              message: '비밀번호를 입력해주세요.',
             },
           ]}
         >
-          <Input.Password onChange={changeValue} />
+          <Input.Password  />
         </Form.Item>
 
         <Form.Item
@@ -76,7 +89,7 @@ const LoginForm = (props) => {
             span: 16,
           }}
         >
-          <Button type="primary" htmlType="submit" onClick={showProps}>
+          <Button type="primary" htmlType="submit" >
             로그인
           </Button>
         </Form.Item>

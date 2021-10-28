@@ -1,13 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {CookiesProvider} from 'react-cookie'
+import {Provider} from 'mobx-react'
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+
+
+
+import Root from './Root'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <CookiesProvider>
+    <Provider>
+      <Router>
+        <Route path="/" render={props => <Root {...props} />} />
+      </Router>
+    </Provider>
+  </CookiesProvider>,
   document.getElementById('root')
 );
 

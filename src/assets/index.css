@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+#LoginContainer{
+  width: 400px;
+  height: 300px;
+  background-color: aliceblue;
+}
+
+
+.loginFailAlert{
+  width: 500px;
+  height: 100px;
+}

@@ -7,7 +7,7 @@ import { action, observable } from "mobx";
 export default class UserStore{
 
     @observable user = {};
-    @observable loginState = false
+    @observable loginState = 0; //0 : 로그인 시도 안함, 1 : 로그인 성공, 2 : 로그인 실패
 
     @action
     setUser = (user) =>{
@@ -15,8 +15,8 @@ export default class UserStore{
     }
 
     @action
-    setLoginState = (trueOrFalse) =>{
-        this.loginState = trueOrFalse;
+    setLoginState = (value) =>{
+        this.loginState = value;
     }
 
 

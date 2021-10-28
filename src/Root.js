@@ -1,13 +1,17 @@
-import LoginContainer from "./containers/LoginContainer";
 import React, {Component} from 'react'
-import {observer} from 'mobx-react'
+import {inject, observer} from 'mobx-react'
+import { ConfigProvider } from "antd";
+import LoginPage from './pages/login/LoginPage';
 
 
+@inject('userStore')
 @observer
 class Root extends Component {
     render() { 
         return (
-        <LoginContainer />
+        <ConfigProvider>
+            <LoginPage {...this.props}/>
+        </ConfigProvider>
         )
     }
 }

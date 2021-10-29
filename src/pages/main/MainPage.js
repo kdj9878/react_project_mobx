@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Layout, Menu } from 'antd';
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -9,14 +9,31 @@ import {
   UserOutlined,
 } from '@ant-design/icons';
 import { Route, Switch } from 'react-router';
-import HRManage from '../../containers/Content/HumanResourceMange/HRManage';
 import { Link } from 'react-router-dom';
+
+
+/* 인사업무 컴포넌트 모음 */
+import HRManage from '../../containers/Content/HumanResourceMange/HRManage'
+import HTManage from '../../containers/Content/materialsManagement/MTManage';
+import EtcCompnent from '../../containers/Content/etc/EtcCompnent';
+
+/* 부서 관리 컴포넌트 모음 */
+import SalseTeamManage from '../../containers/Content/salseTeamManage/SalseTeamManage';
+import DTManage from '../../containers/Content/developmentTeamManage/DTManage';
+import ComCloud from '../../containers/Content/CompanyCloud/ComCloud'
+
+/* 기타컴포넌트 모음 */
+import DTSynthesis from '../../containers/Content/DataSynthesis/DTSynthesis';
+import DTMonitor from '../../containers/Content/DataMonitor/DTMonitor';
+import { inject, observer } from 'mobx-react';
+
 
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
 
-
+@inject('userStore')
+@observer
 class MainPage extends Component {
 
 
@@ -38,38 +55,48 @@ class MainPage extends Component {
           <div className="logo" />
           <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
             <Menu.Item key="1" icon={<PieChartOutlined />}>
-              데이터 종합
+              <Link to="/DTSynthesis">데이터 종합</Link>
             </Menu.Item>
             <Menu.Item key="2" icon={<DesktopOutlined />}>
-              모니터 현황
+              <Link to="/DTMonitor">모니터 현황</Link>
             </Menu.Item>
             <SubMenu key="sub1" icon={<UserOutlined />} title="인사 업무">
                 {/* 먼저 백엔드 서버를 구축해둘까 */}
                   <Menu.Item key="3" >
-                    <Link to="/HRManage" >사원 관리</Link>
+                    <Link to="/HRManage">사원 관리</Link>
                   </Menu.Item>
-                <Menu.Item key="4">자재 관리</Menu.Item>
-                <Menu.Item key="5">기타</Menu.Item>
+                  <Menu.Item key="4">
+                    <Link to="/HTManage">자재 관리</Link>
+                  </Menu.Item>
+                  <Menu.Item key="5">
+                    <Link to="/Etc">기타</Link>
+                  </Menu.Item>
             </SubMenu>
             <SubMenu key="sub2" icon={<TeamOutlined />} title="부서 관리">
-              <Menu.Item key="6">영업팀</Menu.Item>
-              <Menu.Item key="8">개발팀</Menu.Item>
+                  <Menu.Item key="6">
+                    <Link to="/STManage">영업팀</Link>
+                  </Menu.Item>
+                  <Menu.Item key="7">
+                    <Link to="/DTManage">개발팀</Link>
+                  </Menu.Item>
             </SubMenu>
-            <Menu.Item key="9" icon={<FileOutlined />}>
-              회사 Cloud
+            <Menu.Item key="8" icon={<FileOutlined />}>
+              <Link to="/ComCloud">회사 Cloud</Link>
             </Menu.Item>
           </Menu>
         </Sider>
         <Layout className="site-layout">
           <Header className="site-layout-background" style={{ padding: 0 }} />
           <Content style={{ margin: '0 16px' }}>
-            <Breadcrumb style={{ margin: '16px 0' }}>
-              <Breadcrumb.Item>User</Breadcrumb.Item>
-              <Breadcrumb.Item>Bill</Breadcrumb.Item>
-            </Breadcrumb>
             <Switch>
-              <Route  path="/HRMange" component={HRManage}/>
-            
+              <Route path="/ComCloud" component={ComCloud}/>
+              <Route path="/DTMonitor" component={DTMonitor} />
+              <Route path="/DTSynthesis" component={DTSynthesis}/>
+              <Route path="/HRManage" component={HRManage} />
+              <Route path="/HTManage" component={HTManage} />
+              <Route path="/Etc" component={EtcCompnent} />
+              <Route path="/STManage" component={SalseTeamManage}/>
+              <Route path="/DTManage" component={DTManage}/>
             </Switch>
           </Content>
           <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>

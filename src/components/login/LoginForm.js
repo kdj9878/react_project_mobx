@@ -1,32 +1,10 @@
 import { Form, Input, Button, Checkbox } from 'antd';
-import { useEffect } from 'react';
-import fetchLogin from '../../service/fetchLogin';
 
 const LoginForm = (props) => {
 
-  const userControll = props.userStore;
 
-  useEffect( () => {
-    console.log(props)
-  })
-
-
-  const handleFinish = async (values) =>{
-
-    await fetchLogin(values).then(response => {
-      if(response === null) {
-        //로그인에 실패하였을 때
-        userControll.setLoginState(2);
-      }
-      else{
-        userControll.setUser(response)  //userStore 저장된 상태 하지만 새로 고침 할 시 사라짐
-        userControll.setLoginState(1);
-
-        // const userId = response.id;
-        // const password = response.password;
-        // console.log(`id : ${userId} password : ${password}`)
-      }
-    })
+  const handleFinish = (values) =>{
+    props.loginUser(values)
   }
 
   const handleFinishFailed = (error) =>{

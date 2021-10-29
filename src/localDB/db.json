@@ -2,11 +2,15 @@
     "user" : [
         {
             "id" : "admin",
-            "password" : "1234"
+            "password" : "1234",
+            "name" : "강동준",
+            "author" : "adminAccount"
         },
         {
             "id": "normal",
-            "password":"1234"
+            "password":"1234",
+            "name" : "최희웅",
+            "author":"normalAccount"
         }
     ]
 }

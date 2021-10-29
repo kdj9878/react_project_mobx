@@ -1,5 +1,3 @@
-import { observe } from 'mobx';
-import { inject } from 'mobx-react';
 import React, { Component } from 'react';
 
 import { Layout, Menu, Breadcrumb } from 'antd';
@@ -14,8 +12,8 @@ import {
 const { Header, Content, Footer, Sider } = Layout;
 const { SubMenu } = Menu;
 
-@inject('userStore')
-@observe
+
+
 class MainPage extends Component {
 
 

@@ -3,6 +3,7 @@ import LoginForm from '../components/login/LoginForm';
 import {withCookies} from 'react-cookie';
 import fetchLogin from '../service/fetchLogin'
 
+
 class LoginContainer extends Component {
 
 
@@ -17,14 +18,13 @@ class LoginContainer extends Component {
                 this.props.userStore.setLoginState(2);
             }
             else{
+                console.log("Store 업데이트 함")
                 this.props.userStore.setUser(userInfo)  //userStore 저장된 상태 하지만 새로 고침 할 시 사라짐
                 this.props.userStore.setLoginState(1);
-                console.log("Store 업데이트 ")
-                console.log("DB에서 받은 데이터")   
-                console.log(userInfo)   
                 // const userId = userInfo.id;
                 // const password = userInfo.password;
                 // console.log(`id : ${userId} password : ${password}`)
+                console.log("쿠키 설정해서 props한번 더 바뀜")
                 this.setCookie(userInfo);
             }
             })

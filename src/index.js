@@ -18,7 +18,7 @@ ReactDOM.render(
   <CookiesProvider >
     <Provider {...root}>
       <Router>
-        <Route path="/" render={props => <Root {...props} />} />
+        <Route exact path="/" render={props => <Root {...props} />} />
       </Router>
     </Provider>
   </CookiesProvider>,

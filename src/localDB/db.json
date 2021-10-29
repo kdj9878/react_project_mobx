@@ -1,16 +1,19 @@
 {
     "user" : [
         {
+            "userNo" : 0,
             "id" : "admin",
             "password" : "1234",
             "name" : "강동준",
             "author" : "adminAccount"
         },
         {
+            "userNo": 1,
             "id": "normal",
             "password":"1234",
             "name" : "최희웅",
             "author":"normalAccount"
         }
     ]
+    
 }

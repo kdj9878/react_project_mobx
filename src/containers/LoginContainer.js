@@ -33,6 +33,12 @@ class LoginContainer extends Component {
     }
 
     setCostomCookie = (userInfo) =>{
+
+        const now = new Date();
+        const expires = new Date();
+
+        expires.setHours(now.getHours + 1);
+
         //유저 이름과 권한을 쿠키에 저장
         const userNameAndAuthor = {
             "name": userInfo.name,
@@ -41,8 +47,8 @@ class LoginContainer extends Component {
 
         //백엔드 서버가 없기 때문에 임의로 토큰을 생성 후 쿠키에 설정
         const token = "aoifjaoiefjoaifiajfojeaiofaifoefaew" 
-        setCookie('user' , userNameAndAuthor, {path:"/"});
-        setCookie('token', token, {path:"/"});
+        setCookie('user' , userNameAndAuthor, {path:"/", expires:expires});
+        setCookie('token', token, {path:"/", expires:expires});
     }
 
     render() { 

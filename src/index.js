@@ -13,7 +13,6 @@ import Root from './Root'
 
 const root = new RootStore();
 
-
 ReactDOM.render(
   <CookiesProvider >
     <Provider {...root}>

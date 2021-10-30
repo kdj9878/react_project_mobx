@@ -12,7 +12,17 @@ code {
     monospace;
 }
 
+#root{
+  width: 100%;
+  height: 100%;
+}
+
+/* 로그인 관련 */
+
 #LoginContainer{
+  position: relative;
+  top: 30%;
+  left: 35%;
   width: 400px;
   height: 300px;
   background-color: aliceblue;
@@ -23,3 +33,7 @@ code {
   width: 500px;
   height: 100px;
 }
+
+
+
+

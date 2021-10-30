@@ -15,7 +15,7 @@ class LoginPage extends Component {
    
     render() { 
         return ( 
-        <div>
+        <>
             <LoginContainer userStore = {this.props.userStore}/>
 
             {
@@ -29,7 +29,7 @@ class LoginPage extends Component {
             />
             : null
             }
-        </div> 
+        </> 
         );
     }
 }

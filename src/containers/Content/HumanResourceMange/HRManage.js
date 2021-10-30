@@ -10,13 +10,13 @@ const count = 5;
 const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
 
 class HRManage extends Component {
+
   state = {
     initLoading: true,
     loading: false,
     data: [],
     list: [],
   };
-
 
   openModal = (item) =>{
       console.log(item);

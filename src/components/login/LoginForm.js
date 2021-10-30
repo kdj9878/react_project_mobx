@@ -17,6 +17,8 @@ const LoginForm = (props) => {
     return (
       <Form onFinish={handleFinish} onFinishFailed={handleFinishFailed}
         name="basic"
+        
+        
         labelCol={{
           span: 8,
         }}
@@ -59,7 +61,7 @@ const LoginForm = (props) => {
           name="remember"
           valuePropName="checked"
           wrapperCol={{
-            offset: 8,
+            offset: 9,
             span: 16,
           }}
         >
@@ -68,11 +70,13 @@ const LoginForm = (props) => {
 
         <Form.Item
           wrapperCol={{
-            offset: 8,
+            offset: 10,
             span: 16,
           }}
         >
-          <Button type="primary" htmlType="submit" >
+          <Button 
+            type="primary"
+            htmlType="submit" >
             로그인
           </Button>
         </Form.Item>

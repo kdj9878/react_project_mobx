@@ -11,7 +11,7 @@ import { getCookie } from './utils/cookie';
 @observer
 class Root extends Component {
 
-
+    
 
 
     componentDidMount(){
@@ -30,13 +30,6 @@ class Root extends Component {
         }
     }
 
-
-
-
-    componentDidUpdate(){
-        console.log("componentDidUpdate 실행됨")
-        console.log(this.props.userStore)
-    }
 
     render() { 
         //observer를 사용하고 있기 때문에 값이 변경될 경우 알아서 바꿔준다.

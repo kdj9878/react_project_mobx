@@ -17,17 +17,16 @@ code {
   height: 100%;
 }
 
-/* 로그인 관련 */
+/* 로그인 관련  CSS*/
 
 #LoginContainer{
   position: relative;
   top: 30%;
   left: 35%;
-  width: 400px;
+  width: 500px;
   height: 300px;
   background-color: aliceblue;
 }
-
 
 .loginFailAlert{
   width: 500px;
@@ -35,5 +34,8 @@ code {
 }
 
 
-
+.login-form-section{
+  padding-top: 40px;
+  padding-right: 70px;
+}
 

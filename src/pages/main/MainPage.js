@@ -26,6 +26,7 @@ import ComCloud from '../../containers/Content/CompanyCloud/ComCloud'
 import DTSynthesis from '../../containers/Content/DataSynthesis/DTSynthesis';
 import DTMonitor from '../../containers/Content/DataMonitor/DTMonitor';
 import { inject, observer } from 'mobx-react';
+import { getCookie } from '../../utils/cookie';
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -40,7 +41,22 @@ class MainPage extends Component {
 
   state = {
     collapsed: false,
+    loginState : false
   };
+
+  componentDidMount(){
+    this.setState({
+      loginState:true
+    })
+  }
+
+  componentDidUpdate(){
+    const {loginState} = this.props.userStore;
+    const userCookie = getCookie("user")
+    //component가 re-rendering 되었을 때
+    //userStore의 loginState값이 없고 user cookie가 존재하지 않을경우
+    if(loginState !== 1 && !userCookie) window.location.href="http://localhost:3000/"
+  }
 
   onCollapse = collapsed => {
     console.log(collapsed);
@@ -89,14 +105,14 @@ class MainPage extends Component {
           <Header className="site-layout-background" style={{ padding: 0 }} />
           <Content style={{ margin: '0 16px' }}>
             <Switch>
-              <Route path="/ComCloud" component={ComCloud}/>
-              <Route path="/DTMonitor" component={DTMonitor} />
-              <Route path="/DTSynthesis" component={DTSynthesis}/>
-              <Route path="/HRManage" component={HRManage} />
-              <Route path="/HTManage" component={HTManage} />
-              <Route path="/Etc" component={EtcCompnent} />
-              <Route path="/STManage" component={SalseTeamManage}/>
-              <Route path="/DTManage" component={DTManage}/>
+              <Route exact path="/ComCloud" component={ComCloud}/>
+              <Route exact path="/DTMonitor" component={DTMonitor} />
+              <Route exact path="/DTSynthesis" component={DTSynthesis}/>
+              <Route exact path="/HRManage" component={HRManage} />
+              <Route exact path="/HTManage" component={HTManage} />
+              <Route exact path="/Etc" component={EtcCompnent} />
+              <Route exact path="/STManage" component={SalseTeamManage}/>
+              <Route exact path="/DTManage" component={DTManage}/>
             </Switch>
           </Content>
           <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>

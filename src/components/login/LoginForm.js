@@ -15,14 +15,16 @@ const LoginForm = (props) => {
   // antd 3.x 버전의 경우 form.validateFieldAndScroll((err, values) => {})로 접근을 하였지만
   // antd 4.x 버전의 경우 onFinish(성공한 경우) onFinishFailed(실패한 경우) 로 사용을 한다.
     return (
+      <section className="login-form-section">
       <Form onFinish={handleFinish} onFinishFailed={handleFinishFailed}
         name="basic"
         
         
         labelCol={{
-          span: 8,
+          span: 10,
         }}
         wrapperCol={{
+          // offset:10,
           span: 16,
         }}
         initialValues={{
@@ -61,7 +63,7 @@ const LoginForm = (props) => {
           name="remember"
           valuePropName="checked"
           wrapperCol={{
-            offset: 9,
+            offset: 11,
             span: 16,
           }}
         >
@@ -70,7 +72,7 @@ const LoginForm = (props) => {
 
         <Form.Item
           wrapperCol={{
-            offset: 10,
+            offset: 12,
             span: 16,
           }}
         >
@@ -81,7 +83,7 @@ const LoginForm = (props) => {
           </Button>
         </Form.Item>
       </Form>
-      
+      </section>
     )
 };
 

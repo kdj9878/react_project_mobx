@@ -11,14 +11,10 @@ import { getCookie } from './utils/cookie';
 @observer
 class Root extends Component {
 
-    
 
 
     componentDidMount(){
-        console.log("컴포넌트가 마운트 되었을 때" )
-        console.log(this.props.userStore);
         const cookies = getCookie("user");
-        console.log(cookies);
         if(cookies){ //user라는 이름의 cookie가 존재할 때
             console.log("토큰 존재함")
             /*
@@ -27,6 +23,10 @@ class Root extends Component {
             const newUserInfo = compareToken(cookies.token);
             this.props.userStore.setUser(newUserInfo);
             this.props.userStore.setLoginState(1);
+            
+        }
+        else{
+            this.props.history.push("/")
         }
     }
 

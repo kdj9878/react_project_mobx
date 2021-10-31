@@ -26,7 +26,6 @@ import ComCloud from '../../containers/Content/CompanyCloud/ComCloud'
 import DTSynthesis from '../../containers/Content/DataSynthesis/DTSynthesis';
 import DTMonitor from '../../containers/Content/DataMonitor/DTMonitor';
 import { inject, observer } from 'mobx-react';
-import { getCookie } from '../../utils/cookie';
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -41,25 +40,10 @@ class MainPage extends Component {
 
   state = {
     collapsed: false,
-    loginState : false
   };
 
-  componentDidMount(){
-    this.setState({
-      loginState:true
-    })
-  }
-
-  componentDidUpdate(){
-    const {loginState} = this.props.userStore;
-    const userCookie = getCookie("user")
-    //component가 re-rendering 되었을 때
-    //userStore의 loginState값이 없고 user cookie가 존재하지 않을경우
-    if(loginState !== 1 && !userCookie) window.location.href="http://localhost:3000/"
-  }
 
   onCollapse = collapsed => {
-    console.log(collapsed);
     this.setState({ collapsed });
   };
 

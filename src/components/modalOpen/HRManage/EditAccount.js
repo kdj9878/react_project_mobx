@@ -1,23 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Button, List, Card } from 'antd';
 
 const EditAccount = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [imageUrl, setImageUrl] = useState([]);
 
   const data = [
     {title : {
       photo : "회원 사진",
       name : "회원 이름",
     },
+    
   }
 ];
+  const userPhoto = props.data.picture.large;
 
+  useEffect( () =>{
+    setImageUrl(userPhoto);
+    console.log(imageUrl)
+  },[imageUrl])
 
-
-  const userData = props.data;
 
   const showModal = () => {
-    console.log(userData)
     setIsModalVisible(true);
   };
 
@@ -44,8 +48,8 @@ const EditAccount = (props) => {
           dataSource={data}
           renderItem={item => (
         <List.Item>
-          <Card title={item.title.photo}><image src={userData.picture.large}/></Card>
-          <Card title={item.title.name}>{userData.gender}</Card>
+          <Card title={item.title.photo}></Card>
+          <Card title={item.title.name}></Card>
         </List.Item>
       )}
       />

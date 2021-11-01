@@ -8,29 +8,29 @@ import {setCookie} from '../utils/cookie'
 class LoginContainer extends Component {
 
 
-    loginUser = (user) =>{
-        this.requestLoginUser(user);
-    }
+    // loginUser = (user) =>{
+    //     this.requestLoginUser(user);
+    // }
 
-    requestLoginUser = async (user) =>{
-        await fetchLogin(user).then(userInfo => {
-            if(userInfo === null) {
-                //로그인에 실패하였을 때
-                this.props.userStore.setLoginState(2);
-            }
-            else{
-                console.log("Store 업데이트 함")
-                this.props.userStore.setUser(userInfo)  //userStore 저장된 상태 하지만 새로 고침 할 시 사라짐
-                this.props.userStore.setLoginState(1);
-                // const userId = userInfo.id;
-                // const password = userInfo.password;
-                // console.log(`id : ${userId} password : ${password}`)
-                console.log("쿠키 설정해서 props한번 더 바뀜")
-                this.setCostomCookie(userInfo);
-            }
-            })
+    // requestLoginUser = async (user) =>{
+    //     await fetchLogin(user).then(userInfo => {
+    //         if(userInfo === null) {
+    //             //로그인에 실패하였을 때
+    //             this.props.userStore.setLoginState(2);
+    //         }
+    //         else{
+    //             console.log("Store 업데이트 함")
+    //             this.props.userStore.setUser(userInfo)  //userStore 저장된 상태 하지만 새로 고침 할 시 사라짐
+    //             this.props.userStore.setLoginState(1);
+    //             // const userId = userInfo.id;
+    //             // const password = userInfo.password;
+    //             // console.log(`id : ${userId} password : ${password}`)
+    //             console.log("쿠키 설정해서 props한번 더 바뀜")
+    //             this.setCostomCookie(userInfo);
+    //         }
+    //         })
        
-    }
+    // }
 
     setCostomCookie = (userInfo) =>{
 

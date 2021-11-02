@@ -8,9 +8,10 @@ class RequestAxios {
     static delete = "DELETE"
 
     static requestLogin = async (data) => {
+
         await Axios.post("/api/user/login",data, {
             headers :{
-                'content-type': 'application/json'
+                'X-XSS-Protection' : '1;mode=block'
             }
         }).then( res =>{
             console.log(res)

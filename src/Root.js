@@ -20,23 +20,23 @@ class Root extends Component {
     componentDidMount(){
         
 
-        const data = {
-            userInfo :{
-                id:"kdj9878",
-                password : "1234"
-            }
-        }
+        // const data = {
+        //     userInfo :{
+        //         id:"kdj9878",
+        //         password : "1234"
+        //     }
+        // }
 
-        Axios({
-            method : 'POST',
-            url : '/api/user/login',
-            data : JSON.stringify(data),
-            headers:{
-                'content-type': 'application/json',
-            }
-        }).then(res =>{
-            console.log(res)
-        })
+        // Axios({
+        //     method : 'POST',
+        //     url : '/api/user/login',
+        //     data : JSON.stringify(data),
+        //     headers:{
+        //         'content-type': 'application/json',
+        //     }
+        // }).then(res =>{
+        //     console.log(res)
+        // })
 
         // GET 방식은 정상적으로 작동함
         // const data2 = "value"

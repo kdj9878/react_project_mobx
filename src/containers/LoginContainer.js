@@ -11,11 +11,9 @@ class LoginContainer extends Component {
 
     loginUser = (formData) =>{
         const data = {
-            userInfo : {
-                id : formData.id,
-                password : formData.password,
-                remember : formData.remember
-            }
+                userId : formData.id,
+                userPw : formData.password,
+            
         }
         this.requestLoginUser(data);
     }

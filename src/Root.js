@@ -18,29 +18,34 @@ class Root extends Component {
 
 
     componentDidMount(){
+        
 
-        Axios.get("/api/user/login").then( res =>{
+        const data = {
+            userInfo :{
+                id:"kdj9878",
+                password : "1234"
+            }
+        }
+
+        Axios({
+            method : 'POST',
+            url : '/api/user/login',
+            data : JSON.stringify(data),
+            headers:{
+                'content-type': 'application/json',
+            }
+        }).then(res =>{
             console.log(res)
         })
 
-
-
-
-        // const cookies = getCookie("user");
-        // if(cookies){ //user라는 이름의 cookie가 존재할 때
-        //     console.log("토큰 존재함")
-        //     /*
-        //     반환 값 : 유저 정보
-        //     */
-        //     const newUserInfo = compareToken(cookies.token);
-        //     this.props.userStore.setUser(newUserInfo);
-        //     this.props.userStore.setLoginState(1);
-            
-        // }
-        // else{
-        //     this.props.history.push("/")
-        // }
+        // GET 방식은 정상적으로 작동함
+        // const data2 = "value"
+        // Axios.get("/api/user/get?id=" + data2).then(res =>{
+        //     console.log(res)
+        // })
     }
+
+
 
 
     render() { 

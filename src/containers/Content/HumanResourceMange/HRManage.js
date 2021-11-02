@@ -29,6 +29,7 @@ class HRManage extends Component {
         data: res.results,
         list: res.results,
       });
+      console.log(this.state.data)
     });
   }
 
@@ -68,7 +69,6 @@ class HRManage extends Component {
   };
 
   render() {
-    console.log(this.state)
     const { initLoading, loading, list } = this.state;
     const loadMore =
       !initLoading && !loading ? (

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Modal, Button, List, Card } from 'antd';
+import { Modal, Button, List, Card, Skeleton, Avatar } from 'antd';
 
 const EditAccount = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -13,17 +13,29 @@ const EditAccount = (props) => {
     
   }
 ];
-  const userPhoto = props.data.picture.large;
+  
+
 
   useEffect( () =>{
+    const userPhoto = props.data.picture.large;
     setImageUrl(userPhoto);
+  },[])
+
+  /*
+  useEffect(()=>{}, [])에서 배열에 값을 넣을 경우
+  처음에 마운트 될 때와 해당 값이 업데이트 될 때마다 함수가
+  실행이 되고 return () => {} 을 사용할 경우 unmount 될 때도 실행이
+  된다.
+  */
+  const callImageUrl = () =>{
     console.log(imageUrl)
-  },[imageUrl])
-
-
+  }
+ 
   const showModal = () => {
     setIsModalVisible(true);
+    callImageUrl();
   };
+
 
   const handleOk = () => {
     setIsModalVisible(false);
@@ -48,7 +60,10 @@ const EditAccount = (props) => {
           dataSource={data}
           renderItem={item => (
         <List.Item>
-          <Card title={item.title.photo}></Card>
+          <Skeleton avatar  active>
+            <List.Item.Meta avatar={<Avatar src={imageUrl} />} />
+          </Skeleton>
+          <Card title={item.title.photo} >{imageUrl}</Card>
           <Card title={item.title.name}></Card>
         </List.Item>
       )}

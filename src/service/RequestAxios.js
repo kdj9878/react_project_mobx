@@ -9,13 +9,23 @@ class RequestAxios {
 
     static requestLogin = async (data) => {
 
-        await Axios.post("/api/user/login",data, {
+        const response = await Axios.post("/api/user/login",data, {
             headers :{
                 'X-XSS-Protection' : '1;mode=block'
             }
-        }).then( res =>{
-            console.log(res)
-        })
+        }).then(response => response).catch(error => {console.log(error)})
+
+        
+
+
+        if(response === undefined){
+            alert("서버와의 연결이 원활하지 않습니다.")
+            return response;
+        } else {   
+            return response.status === 200 ? response.data : response;
+        }
+
+
     }
 
 

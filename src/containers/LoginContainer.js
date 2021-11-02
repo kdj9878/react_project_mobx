@@ -19,20 +19,22 @@ class LoginContainer extends Component {
     }
 
     requestLoginUser = async (data) =>{
-        await RequestAxios.requestLogin(data)
+       const responseData = await RequestAxios.requestLogin(data);
+       console.log(responseData)
+       this.setCostomCookie(responseData);
     }
 
-    setCostomCookie = (userInfo) =>{
+    setCostomCookie = (responseData) =>{
 
+        //토큰 유효 시간 1시간으로 설정
         const now = new Date();
         const expires = new Date();
-
         expires.setHours(now.getHours + 1);
 
         //유저 이름과 권한을 쿠키에 저장
         const userNameAndAuthor = {
-            "name": userInfo.name,
-            "author": userInfo.author
+            "name": responseData.username,
+            "author": responseData.userauth
         }
 
         //백엔드 서버가 없기 때문에 임의로 토큰을 생성 후 쿠키에 설정

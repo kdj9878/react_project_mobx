@@ -1,12 +1,14 @@
 import React, {Component} from 'react'
 import LoginForm from '../components/login/LoginForm';
 import {withCookies} from 'react-cookie';
-import fetchLogin from '../service/RequestAxios';
 import {setCookie} from '../utils/cookie';
 import RequestAxios from '../service/RequestAxios';
+import { inject, observer } from 'mobx-react';
 
-
+@inject('userStore')
+@observer
 class LoginContainer extends Component {
+
 
 
     loginUser = (formData) =>{
@@ -20,9 +22,16 @@ class LoginContainer extends Component {
 
     requestLoginUser = async (data) =>{
        const responseData = await RequestAxios.requestLogin(data);
-       console.log(responseData)
+       this.setLoginUser(responseData);
        this.setCostomCookie(responseData);
     }
+
+    setLoginUser = (responseData) =>{
+        const userStore = this.props.userStore;
+        userStore.setUser(responseData);
+        userStore.setLoginState(1);
+    }
+
 
     setCostomCookie = (responseData) =>{
 

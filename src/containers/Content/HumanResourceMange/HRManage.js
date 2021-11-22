@@ -29,7 +29,6 @@ class HRManage extends Component {
         data: res.results,
         list: res.results,
       });
-      console.log(this.state.data)
     });
   }
 
@@ -70,6 +69,17 @@ class HRManage extends Component {
 
   render() {
     const { initLoading, loading, list } = this.state;
+
+    console.log("data")
+    console.log(this.state.data)
+    console.log("list")
+    console.log(this.state.list)
+    //처음 state가 init 되었을 때 console이 찍히고
+    //setState가 되면 새로운 props를 가지게 되므로 다시 랜더링이 되게 된다.
+
+    // this.state.data.map((item, index) =>{
+    //   console.log(item)
+    // })
     const loadMore =
       !initLoading && !loading ? (
         <div
@@ -85,6 +95,7 @@ class HRManage extends Component {
       ) : null;
 
     return (
+      
       <List
         className="demo-loadmore-list"
         loading={initLoading}

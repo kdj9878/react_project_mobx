@@ -3,23 +3,9 @@ import { Modal, Button, List, Card, Skeleton, Avatar } from 'antd';
 
 const EditAccount = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [imageUrl, setImageUrl] = useState([]);
-
-  const data = [
-    {title : {
-      photo : "회원 사진",
-      name : "회원 이름",
-    },
-    
-  }
-];
-  
 
 
-  useEffect( () =>{
-    const userPhoto = props.data.picture.large;
-    setImageUrl(userPhoto);
-  },[])
+
 
   /*
   useEffect(()=>{}, [])에서 배열에 값을 넣을 경우
@@ -27,13 +13,10 @@ const EditAccount = (props) => {
   실행이 되고 return () => {} 을 사용할 경우 unmount 될 때도 실행이
   된다.
   */
-  const callImageUrl = () =>{
-    console.log(imageUrl)
-  }
+ 
  
   const showModal = () => {
     setIsModalVisible(true);
-    callImageUrl();
   };
 
 
@@ -57,14 +40,16 @@ const EditAccount = (props) => {
         onCancel={handleCancel}>
         <List
           grid={{ gutter: 16, column: 1 }}
-          dataSource={data}
+          dataSource={props.data}
           renderItem={item => (
         <List.Item>
-          <Skeleton avatar  active>
-            <List.Item.Meta avatar={<Avatar src={imageUrl} />} />
+          <Skeleton avatar active>
+            <List.Item.Meta />
+            
           </Skeleton>
-          <Card title={item.title.photo} >{imageUrl}</Card>
-          <Card title={item.title.name}></Card>
+          <Card title="사진" ><img src={item.photo} /></Card>
+          <Card title="이름">{item.name}</Card>
+          {item.photo}
         </List.Item>
       )}
       />

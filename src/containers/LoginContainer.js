@@ -22,14 +22,25 @@ class LoginContainer extends Component {
 
     requestLoginUser = async (data) =>{
        const responseData = await RequestAxios.requestLogin(data);
-       this.setLoginUser(responseData);
-       this.setCostomCookie(responseData);
+       if(responseData){
+          this.setLoginUser(responseData);
+          this.setCostomCookie(responseData);
+       }
+       else{
+          this.setLoginUser(responseData);
+       }
     }
 
     setLoginUser = (responseData) =>{
         const userStore = this.props.userStore;
-        userStore.setUser(responseData);
-        userStore.setLoginState(1);
+        if(responseData){
+            userStore.setUser(responseData);
+            userStore.setLoginState(1);
+        }
+        else{
+            userStore.setLoginState(2);
+        }
+
     }
 
 

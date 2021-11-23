@@ -1,13 +1,12 @@
 import React,{Component} from 'react';
 import { List, Avatar, Button, Skeleton } from 'antd';
-import reqwest from 'reqwest';
+import RequestAxios from '../../../service/RequestAxios';
 
 /* Modal 출력 버튼 */
 import EditAccount from '../../../components/modalOpen/HRManage/EditAccount';
 import MoreInfomation from '../../../components/modalOpen/HRManage/MoreInfomation';
 
 const count = 5;
-const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
 
 class HRManage extends Component {
 
@@ -24,25 +23,22 @@ class HRManage extends Component {
 
   componentDidMount() {
     this.getData(res => {
+      console.log(res)
       this.setState({
         initLoading: false,
-        data: res.results,
-        list: res.results,
+        data: res,
+        list: res,
       });
     });
   }
 
-  getData = callback => {
-    reqwest({
-      url: fakeDataUrl,
-      type: 'json',
-      method: 'get',
-      contentType: 'application/json',
-      success: res => {
-        callback(res);
-      },
+  getData = async (callBack) =>{
+    await RequestAxios.requestData('/api/user/list')
+      .then(res =>{
+        callBack(res)
     });
-  };
+    
+  }
 
   onLoadMore = () => {
     this.setState({
@@ -104,9 +100,9 @@ class HRManage extends Component {
           >
             <Skeleton avatar title={false} loading={item.loading} active>
               <List.Item.Meta
-                avatar={<Avatar src={item.picture.large} />}
-                title={<a href="https://ant.design">{item.name.last}</a>}
-                description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                // avatar={<Avatar src={item.picture.large} />}
+                title={item.userNickname}
+                description={item.userDesc}
               />
             </Skeleton>
           </List.Item>

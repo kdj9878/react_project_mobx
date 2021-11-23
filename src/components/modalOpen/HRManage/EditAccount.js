@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Modal, Button, Descriptions } from 'antd';
+import { Modal, Button } from 'antd';
 
 const EditAccount = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);

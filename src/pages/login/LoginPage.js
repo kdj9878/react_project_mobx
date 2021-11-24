@@ -20,13 +20,16 @@ class LoginPage extends Component {
 
             {
             this.props.userStore.loginState === 2
-            ? <Alert className="loginFailAlert"
-            message="로그인 실패"
-            description="아이디 혹은 비밀번호가 일치하지 않습니다."
-            type="error"
-            closable
-            onClose={this.onClose}
+            ? 
+            <div className="login-fail-alert">
+              <Alert className="loginFailAlert"
+              message="로그인 실패"
+              description="아이디 혹은 비밀번호가 일치하지 않습니다."
+              type="error"
+              closable
+              onClose={this.onClose}
             />
+            </div>
             : null
             }
         </> 

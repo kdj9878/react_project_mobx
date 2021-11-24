@@ -1,17 +1,9 @@
 import React, { useState, useEffect} from 'react';
 import { Modal, Button, Descriptions } from 'antd';
-import { userContexts } from '../../../context/context';
-
-import InfoChangeComponent from '../../common/InfoChangeComponent';
-import InfoDisplayComponent from '../../common/InfoDisplayComponent';
 
 const MoreInfomation = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [userAttr, setUserAttr] = useState([]);
-  const [isChildNode, setIsChildNode] = useState();
-  const [isSiblingNode, setIsSiblingNode] = useState();
-
-
+  const {userNickname, userEmail, userPh, deptNm, deptDtNm, userGender, userAddr, usreDesc} = props.data;
   /*
   useEffect(()=>{}, [])에서 배열에 값을 넣을 경우
   처음에 마운트 될 때와 해당 값이 업데이트 될 때마다 함수가
@@ -20,47 +12,7 @@ const MoreInfomation = (props) => {
   된다.
   */
   
-  useEffect(() =>{
-    const userProps = Object.entries(props.data);
-    setUserAttr(userProps);
-  }, [])
 
-  const requestChange = (e) =>{
-    const parentNode = e.target.offsetParent;
-    const childNode = parentNode.childNodes[0].children[1];
-    const siblingNode = childNode.previousSibling;
-    const confirm = window.confirm("수정하시겠습니까?")
-    if(confirm){
-      setIsChildNode(childNode);
-      setIsSiblingNode(siblingNode);
-      childNode.style.display = "none";
-      siblingNode.style.display = "block"
-    }
-  }
-
-
-  /* 
-    받아온 props를 바탕으로 <Descriptions.Item>를 반복시키기 위한 함수
-  */
-  const formRendering = () =>{
-    const result = [];
-      let j = 0;
-      for(let i = 0; i < userContexts.length;){
-        if(userContexts[i].code !== userAttr[j][0]){
-          j++;          
-          continue;
-        }
-        result.push(
-          <Descriptions.Item label={userContexts[i].label} style={{textAlign:'center'}}>
-               <InfoChangeComponent data={userAttr[j][1]} siblingNode={isSiblingNode}/>
-               <InfoDisplayComponent data={userAttr[j][1]} requestChange={requestChange}/>
-          </Descriptions.Item>
-        )
-        i++;
-        j = 0;
-      }
-        return result;
-  }
  
   const showModal = () => {
     setIsModalVisible(true);
@@ -69,14 +21,10 @@ const MoreInfomation = (props) => {
 
   const handleOk = () => {
     setIsModalVisible(false);
-    isChildNode.style.display = "block";
-    isSiblingNode.style.display = "none";
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
-    isChildNode.style.display = "block";
-    isSiblingNode.style.display = "none"
   };
 
   return (
@@ -93,11 +41,30 @@ const MoreInfomation = (props) => {
         onCancel={handleCancel}
         >
           <Descriptions title="회원 상세 정보" bordered>
-            {
-              userAttr.length > 0 && userContexts.length > 0
-              ? formRendering()
-              : null
-            }
+            <Descriptions.Item label="사원 이름" style={{textAlign:'center'}}>
+                {userNickname}
+            </Descriptions.Item>
+            <Descriptions.Item label="사원 이메일" style={{textAlign:'center'}}>
+              {userEmail}
+            </Descriptions.Item>
+            <Descriptions.Item label="사원 핸드폰 번호" style={{textAlign:'center'}}>
+              {userPh}
+            </Descriptions.Item>
+            <Descriptions.Item label="소속 부서" style={{textAlign:'center'}}>
+              {deptNm}
+            </Descriptions.Item>
+            <Descriptions.Item label="소속 팀" style={{textAlign:'center'}}>
+              {deptDtNm}
+            </Descriptions.Item>
+            <Descriptions.Item label="성별" style={{textAlign:'center'}}>
+              {userGender}
+            </Descriptions.Item>
+            <Descriptions.Item label="주소" style={{textAlign:'center'}}>
+              {userAddr}
+            </Descriptions.Item>
+            <Descriptions.Item label="사원 자기소개" style={{textAlign:'center'}}>
+              {usreDesc}
+            </Descriptions.Item>
           </Descriptions>
       </Modal>
     </>

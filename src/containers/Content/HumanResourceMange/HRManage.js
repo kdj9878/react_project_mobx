@@ -23,7 +23,6 @@ class HRManage extends Component {
 
   componentDidMount() {
     this.getData(res => {
-      console.log(res)
       this.setState({
         initLoading: false,
         data: res,

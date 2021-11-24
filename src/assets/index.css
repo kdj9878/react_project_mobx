@@ -39,3 +39,8 @@ code {
   padding-right: 70px;
 }
 
+.login-fail-alert{
+  position: relative;
+  left: 35%;
+}
+

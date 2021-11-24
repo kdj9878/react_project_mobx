@@ -13,8 +13,8 @@ class LoginContainer extends Component {
 
     loginUser = (formData) =>{
         const data = {
-                userId : formData.id,
-                userPw : formData.password,
+          userId : formData.id,
+          userPw : formData.password,
             
         }
         this.requestLoginUser(data);
@@ -42,7 +42,6 @@ class LoginContainer extends Component {
         }
 
     }
-
 
     setCostomCookie = (responseData) =>{
 

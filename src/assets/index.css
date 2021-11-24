@@ -33,7 +33,6 @@ code {
   height: 100px;
 }
 
-
 .login-form-section{
   padding-top: 40px;
   padding-right: 70px;
@@ -44,3 +43,23 @@ code {
   left: 35%;
 }
 
+
+/* MoreInformation 모달창 css */
+
+.user-info-div{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+.user-info-value{
+  text-align: center;
+}
+
+.user-info-change-button{
+  background-color: #1890ff;
+  color: white;
+  border-radius: 3px;
+  border-color: #1890ff;
+}

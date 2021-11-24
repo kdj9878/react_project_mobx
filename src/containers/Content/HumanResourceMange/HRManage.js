@@ -3,7 +3,6 @@ import { List, Avatar, Button, Skeleton } from 'antd';
 import RequestAxios from '../../../service/RequestAxios';
 
 /* Modal 출력 버튼 */
-import EditAccount from '../../../components/modalOpen/HRManage/EditAccount';
 import MoreInfomation from '../../../components/modalOpen/HRManage/MoreInfomation';
 
 const count = 5;
@@ -95,7 +94,7 @@ class HRManage extends Component {
         dataSource={list}
         renderItem={item => (
           <List.Item
-             actions={[<EditAccount data={item} />, <MoreInfomation data={item} />]}
+             actions={[ <MoreInfomation data={item} />]}
           >
             <Skeleton avatar title={false} loading={item.loading} active>
               <List.Item.Meta

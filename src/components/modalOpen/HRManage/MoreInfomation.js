@@ -2,9 +2,14 @@ import React, { useState, useEffect} from 'react';
 import { Modal, Button, Descriptions } from 'antd';
 import { userContexts } from '../../../context/context';
 
+import InfoChangeComponent from '../../common/InfoChangeComponent';
+import InfoDisplayComponent from '../../common/InfoDisplayComponent';
+
 const MoreInfomation = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [userAttr, setUserAttr] = useState([]);
+  const [isChildNode, setIsChildNode] = useState();
+  const [isSiblingNode, setIsSiblingNode] = useState();
 
 
   /*
@@ -17,21 +22,38 @@ const MoreInfomation = (props) => {
   
   useEffect(() =>{
     const userProps = Object.entries(props.data);
-    setUserAttr(userProps)
+    setUserAttr(userProps);
   }, [])
 
+  const requestChange = (e) =>{
+    const parentNode = e.target.offsetParent;
+    const childNode = parentNode.childNodes[0].children[1];
+    const siblingNode = childNode.previousSibling;
+    const confirm = window.confirm("수정하시겠습니까?")
+    if(confirm){
+      setIsChildNode(childNode);
+      setIsSiblingNode(siblingNode);
+      childNode.style.display = "none";
+      siblingNode.style.display = "block"
+    }
+  }
+
+
+  /* 
+    받아온 props를 바탕으로 <Descriptions.Item>를 반복시키기 위한 함수
+  */
   const formRendering = () =>{
     const result = [];
       let j = 0;
-      console.log(userContexts.length)
       for(let i = 0; i < userContexts.length;){
         if(userContexts[i].code !== userAttr[j][0]){
-          j++;
+          j++;          
           continue;
         }
         result.push(
           <Descriptions.Item label={userContexts[i].label} style={{textAlign:'center'}}>
-            {userAttr[j][1]}
+               <InfoChangeComponent data={userAttr[j][1]} siblingNode={isSiblingNode}/>
+               <InfoDisplayComponent data={userAttr[j][1]} requestChange={requestChange}/>
           </Descriptions.Item>
         )
         i++;
@@ -47,10 +69,14 @@ const MoreInfomation = (props) => {
 
   const handleOk = () => {
     setIsModalVisible(false);
+    isChildNode.style.display = "block";
+    isSiblingNode.style.display = "none";
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
+    isChildNode.style.display = "block";
+    isSiblingNode.style.display = "none"
   };
 
   return (
@@ -64,11 +90,9 @@ const MoreInfomation = (props) => {
         height ={300}
         visible={isModalVisible} 
         onOk={handleOk} 
-        onCancel={handleCancel}>
+        onCancel={handleCancel}
+        >
           <Descriptions title="회원 상세 정보" bordered>
-            {/* <Descriptions.Item label="사원 사진" style={{textAlign:'center'}}>
-              <img src={picture.large} alt="사원 사진" />
-            </Descriptions.Item> */}
             {
               userAttr.length > 0 && userContexts.length > 0
               ? formRendering()

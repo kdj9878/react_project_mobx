@@ -1,21 +1,25 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect, useRef} from 'react';
 import { Modal, Button, Descriptions } from 'antd';
+import RequestAxios from '../../../service/RequestAxios'
 //Input태그 기본 속성
 import { inputAttr } from '../../../context/context';
+//Input태그 value 기본 속성
+import { defInputsState } from '../../../context/context';
 
 const MoreInfomation = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const {userNickname, userEmail, userPh, deptNm, deptDtNm, userGender, userAddr, usreDesc} = props.data;
+  //Input들 변화 감지를 위한 상태 관리
+  const [inputs, setInputs] = useState(defInputsState)
 
+  /* Input태그 속성 상태관리 */
+  const [isInputTagAttr, setIsInputTagAttr] = useState([inputAttr.default, inputAttr.buttonState.default])
 
-
-
-  /* Input태그 속성 */
-  const [isInputTagAttr, setIsInputTagAttr] = useState(inputAttr.default)
+  const {userNickNameValue, userEmailValue, userPhValue, deptNmValue, deptDtNmValue, userGenderValue, userAddrValue, userDescValue} = inputs;
 
   useEffect( () =>{
     console.log(isInputTagAttr)
-  }, [])
+  }, [isInputTagAttr])
  
 
   /*
@@ -26,13 +30,39 @@ const MoreInfomation = (props) => {
   된다.
   */
   const modify = () =>{
-    const confirm = window.confirm("데이터를 수정하시겠습니까?");
-    if(confirm){
-      setIsInputTagAttr(inputAttr.modState)
+    
+    if(isInputTagAttr[1] === 0){
+      var confirm = window.confirm("데이터를 수정하시겠습니까?");
+      if(confirm){
+        setIsInputTagAttr([inputAttr.modState, inputAttr.buttonState.modState]) //input태그 활성화
+      }
     }
+    else {
+      var confirm = window.confirm("수정한 데이터를 저장하시겠습니까?");
+      if(confirm){
+        const sendData = {
+          userId : props.data.userId
+        }
+        RequestAxios.requestData(
+          '/api/user/infoChange',
+          sendData,
+          "PUT"
+          )
+      }
+    }
+    
   }
 
-
+  const onChange = (e) =>{
+    const { name, value } = e.target
+    console.log(`name : ${name}, value : ${value}`)
+    setInputs({
+      ...inputs,
+      [name] : value
+    })
+    console.log(inputs)
+  }
+  
  
   const showModal = () => {
     setIsModalVisible(true);
@@ -41,12 +71,14 @@ const MoreInfomation = (props) => {
 
   const handleOk = () => {
     setIsModalVisible(false);
-    setIsInputTagAttr(inputAttr.default)
+    setIsInputTagAttr([inputAttr.default, inputAttr.buttonState.default])
+    setInputs(defInputsState)
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
-    setIsInputTagAttr(inputAttr.default)
+    setIsInputTagAttr([inputAttr.default, inputAttr.buttonState.default])
+    setInputs(defInputsState)
   };
 
   return (
@@ -65,7 +97,7 @@ const MoreInfomation = (props) => {
             type="primary"
             onClick={modify}
           >
-            {isInputTagAttr.buttonNm}
+            {isInputTagAttr[0].buttonNm}
           </Button>,
           <Button
             key="ok"
@@ -86,68 +118,91 @@ const MoreInfomation = (props) => {
           <Descriptions title="회원 상세 정보" bordered>
             <Descriptions.Item label="사원 이름" style={{textAlign:'center'}}>
               <input
-                readOnly={isInputTagAttr.readOnly}
-                className={isInputTagAttr.className}
-                type="text" 
-                value={userNickname} 
+                name="userNickNameValue"
+                readOnly={isInputTagAttr[0].readOnly}
+                className={isInputTagAttr[0].className}
+                type="text"
+                onChange={onChange}
+                placeholder={userNickname}
+                value={userNickNameValue}
                 />
-                
             </Descriptions.Item>
             <Descriptions.Item label="사원 이메일" style={{textAlign:'center'}}>
             <input
-                readOnly={isInputTagAttr.readOnly}
-                className={isInputTagAttr.className}
-                type="text" 
-                value={userEmail}
+                name="userEmailValue"
+                readOnly={isInputTagAttr[0].readOnly}
+                className={isInputTagAttr[0].className}
+                type="text"
+                onChange={onChange}
+                placeholder={userEmail}
+                value={userEmailValue}
                 />
             </Descriptions.Item>
             <Descriptions.Item label="사원 핸드폰 번호" style={{textAlign:'center'}}>
             <input
-                readOnly={isInputTagAttr.readOnly}
-                className={isInputTagAttr.className}
-                type="text" 
-                value={userPh}
+                name="userPhValue"
+                readOnly={isInputTagAttr[0].readOnly}
+                className={isInputTagAttr[0].className}
+                type="text"
+                onChange={onChange}
+                placeholder={userPh}
+                value={userPhValue}
                 />
               
             </Descriptions.Item>
             <Descriptions.Item label="소속 부서" style={{textAlign:'center'}}>
             <input
-                readOnly={isInputTagAttr.readOnly}
-                className={isInputTagAttr.className}
-                type="text" 
-                value={deptNm}
+                name="deptNmValue"
+                readOnly={isInputTagAttr[0].readOnly}
+                className={isInputTagAttr[0].className}
+                type="text"
+                onChange={onChange}
+                placeholder={deptNm}
+                value={deptNmValue}
                 />
             </Descriptions.Item>
             <Descriptions.Item label="소속 팀" style={{textAlign:'center'}}>
             <input
-                readOnly={isInputTagAttr.readOnly}
-                className={isInputTagAttr.className}
-                type="text" 
-                value={deptDtNm}
+                name="deptDtNmValue"
+                readOnly={isInputTagAttr[0].readOnly}
+                className={isInputTagAttr[0].className}
+                type="text"
+                onChange={onChange}
+                placeholder={deptDtNm}
+                value={deptDtNmValue}
                 />
             </Descriptions.Item>
             <Descriptions.Item label="성별" style={{textAlign:'center'}}>
             <input
-                readOnly={isInputTagAttr.readOnly}
-                className={isInputTagAttr.className}
-                type="text" 
-                value={userGender}
+                name="userGenderValue"
+                readOnly={isInputTagAttr[0].readOnly}
+                className={isInputTagAttr[0].className}
+                type="text"
+                onChange={onChange}
+                placeholder={userGender}
+                value={userGenderValue}
                 />
             </Descriptions.Item>
             <Descriptions.Item label="주소" style={{textAlign:'center'}}>
             <input
-                readOnly={isInputTagAttr.readOnly}
-                className={isInputTagAttr.className}
-                type="text" 
-                value={userAddr}
+                name="userAddrValue"
+                readOnly={isInputTagAttr[0].readOnly}
+                className={isInputTagAttr[0].className}
+                type="text"
+                onChange={onChange}
+                placeholder={userAddr}
+                value={userAddrValue}
                 />
             </Descriptions.Item>
             <Descriptions.Item label="사원 자기소개" style={{textAlign:'center'}}>
             <input
-                readOnly={isInputTagAttr.readOnly}
-                className={isInputTagAttr.className}
-                type="text" 
-                value={usreDesc}
+                name="userDescValue"
+                readOnly={isInputTagAttr[0].readOnly}
+                className={isInputTagAttr[0].className}
+                type="text"
+                onChange={onChange}
+                placeholder={usreDesc}
+                value={userDescValue}
                 />
             </Descriptions.Item>
           </Descriptions>

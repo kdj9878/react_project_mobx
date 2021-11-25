@@ -63,3 +63,25 @@ code {
   border-radius: 3px;
   border-color: #1890ff;
 }
+
+
+/* 회원 상세 정보 Input태그 기본 속성*/
+
+.user-info-input-default {
+  text-align: center;
+  border: none;
+  border-top: 0px;
+  border-left: 0px;
+  border-right: 0px;
+  border-bottom: 0px;
+}
+
+.user-info-input-default:focus {
+  outline: none;
+}
+
+/* 회원 상세 정보 Input태그 수정 상태 */
+
+ .user-info-input-mod {
+   text-align: center;
+ }

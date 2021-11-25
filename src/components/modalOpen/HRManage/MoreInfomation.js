@@ -15,10 +15,10 @@ const MoreInfomation = (props) => {
   /* Input태그 속성 상태관리 */
   const [isInputTagAttr, setIsInputTagAttr] = useState([inputAttr.default, inputAttr.buttonState.default])
 
-  const {userNickNameValue, userEmailValue, userPhValue, deptNmValue, deptDtNmValue, userGenderValue, userAddrValue, userDescValue} = inputs;
+  const {userNickNameValue, userEmailValue, userPhValue, userAddrValue} = inputs;
 
   useEffect( () =>{
-    console.log(isInputTagAttr)
+    console.log(props)
   }, [isInputTagAttr])
  
 
@@ -29,7 +29,7 @@ const MoreInfomation = (props) => {
   return () => {} 을 사용할 경우 unmount 될 때도 실행이
   된다.
   */
-  const modify = () =>{
+  const modify = async () =>{
     
     if(isInputTagAttr[1] === 0){
       var confirm = window.confirm("데이터를 수정하시겠습니까?");
@@ -40,27 +40,28 @@ const MoreInfomation = (props) => {
     else {
       var confirm = window.confirm("수정한 데이터를 저장하시겠습니까?");
       if(confirm){
-        const sendData = {
+        const userId = {
           userId : props.data.userId
         }
-        RequestAxios.requestData(
+        const sendData = Object.assign(inputs, userId)
+        await RequestAxios.requestData(
           '/api/user/infoChange',
           sendData,
           "PUT"
-          )
+          ).then(res => {   //회원 리스트를 다시 가져옴
+            props.updateList(res) //받아온 회원 리스트를 상위컴포넌트로 전달
+            setIsInputTagAttr([inputAttr.default, inputAttr.buttonState.default])
+          })
       }
     }
-    
   }
 
   const onChange = (e) =>{
     const { name, value } = e.target
-    console.log(`name : ${name}, value : ${value}`)
     setInputs({
       ...inputs,
       [name] : value
     })
-    console.log(inputs)
   }
   
  
@@ -152,35 +153,26 @@ const MoreInfomation = (props) => {
             </Descriptions.Item>
             <Descriptions.Item label="소속 부서" style={{textAlign:'center'}}>
             <input
-                name="deptNmValue"
-                readOnly={isInputTagAttr[0].readOnly}
-                className={isInputTagAttr[0].className}
+                readOnly
+                className="user-info-input-default"
                 type="text"
-                onChange={onChange}
                 placeholder={deptNm}
-                value={deptNmValue}
                 />
             </Descriptions.Item>
             <Descriptions.Item label="소속 팀" style={{textAlign:'center'}}>
             <input
-                name="deptDtNmValue"
-                readOnly={isInputTagAttr[0].readOnly}
-                className={isInputTagAttr[0].className}
+                readOnly
+                className="user-info-input-default"
                 type="text"
-                onChange={onChange}
                 placeholder={deptDtNm}
-                value={deptDtNmValue}
                 />
             </Descriptions.Item>
             <Descriptions.Item label="성별" style={{textAlign:'center'}}>
             <input
-                name="userGenderValue"
-                readOnly={isInputTagAttr[0].readOnly}
-                className={isInputTagAttr[0].className}
+                readOnly
+                className="user-info-input-default"
                 type="text"
-                onChange={onChange}
                 placeholder={userGender}
-                value={userGenderValue}
                 />
             </Descriptions.Item>
             <Descriptions.Item label="주소" style={{textAlign:'center'}}>
@@ -196,13 +188,10 @@ const MoreInfomation = (props) => {
             </Descriptions.Item>
             <Descriptions.Item label="사원 자기소개" style={{textAlign:'center'}}>
             <input
-                name="userDescValue"
-                readOnly={isInputTagAttr[0].readOnly}
-                className={isInputTagAttr[0].className}
+                readOnly
+                className="user-info-input-default"
                 type="text"
-                onChange={onChange}
                 placeholder={usreDesc}
-                value={userDescValue}
                 />
             </Descriptions.Item>
           </Descriptions>

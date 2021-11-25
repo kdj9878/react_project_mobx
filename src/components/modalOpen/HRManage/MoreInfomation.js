@@ -8,13 +8,14 @@ import { defInputsState } from '../../../context/context';
 
 const MoreInfomation = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const {userNickname, userEmail, userPh, deptNm, deptDtNm, userGender, userAddr, usreDesc} = props.data;
   //Input들 변화 감지를 위한 상태 관리
   const [inputs, setInputs] = useState(defInputsState)
-
+  
   /* Input태그 속성 상태관리 */
   const [isInputTagAttr, setIsInputTagAttr] = useState([inputAttr.default, inputAttr.buttonState.default])
-
+  
+  /* 사용할 데이터 비구조화 할당 */
+  const {userNickname, userEmail, userPh, deptNm, deptDtNm, userGender, userAddr, userDesc} = props.data;
   const {userNickNameValue, userEmailValue, userPhValue, userAddrValue} = inputs;
 
   useEffect( () =>{
@@ -77,9 +78,12 @@ const MoreInfomation = (props) => {
   };
 
   const handleCancel = () => {
-    setIsModalVisible(false);
-    setIsInputTagAttr([inputAttr.default, inputAttr.buttonState.default])
-    setInputs(defInputsState)
+    var confirm = window.confirm("데이터 변경을 취소하시겠습니까?");
+    if(confirm){
+      setIsModalVisible(false);
+      setIsInputTagAttr([inputAttr.default, inputAttr.buttonState.default])
+      setInputs(defInputsState)
+    }
   };
 
   return (
@@ -101,6 +105,7 @@ const MoreInfomation = (props) => {
             {isInputTagAttr[0].buttonNm}
           </Button>,
           <Button
+            style={isInputTagAttr[1] === 0 ? {display:"inline"} : {display:"none"}}
             key="ok"
             type="primary"
             onClick={handleOk}
@@ -108,6 +113,7 @@ const MoreInfomation = (props) => {
             확인
           </Button>,
           <Button
+            style={isInputTagAttr[1] === 0 ? {display:"none"} : {display:"inline"}}
             key="cancel"
             type="primary"
             onClick={handleCancel}
@@ -191,7 +197,7 @@ const MoreInfomation = (props) => {
                 readOnly
                 className="user-info-input-default"
                 type="text"
-                placeholder={usreDesc}
+                placeholder={userDesc}
                 />
             </Descriptions.Item>
           </Descriptions>

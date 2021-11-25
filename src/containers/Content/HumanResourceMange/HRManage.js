@@ -31,7 +31,7 @@ class HRManage extends Component {
   }
 
   getData = async (callBack) =>{
-    await RequestAxios.requestData('/api/user/list')
+    await RequestAxios.requestData('/api/user/list', null, "GET")
       .then(res =>{
         callBack(res)
     });

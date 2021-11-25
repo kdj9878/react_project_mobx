@@ -35,7 +35,13 @@ class HRManage extends Component {
       .then(res =>{
         callBack(res)
     });
-    
+  }
+
+  updateList = (updatedList) => {
+    this.setState({
+      data : updatedList,
+      list : updatedList
+    })
   }
 
   onLoadMore = () => {
@@ -94,7 +100,7 @@ class HRManage extends Component {
         dataSource={list}
         renderItem={item => (
           <List.Item
-             actions={[ <MoreInfomation data={item} />]}
+             actions={[ <MoreInfomation data={item} updateList={this.updateList} />]}
           >
             <Skeleton avatar title={false} loading={item.loading} active>
               <List.Item.Meta

@@ -23,6 +23,11 @@ const MoreInfomation = (props) => {
   }, [isInputTagAttr])
  
 
+  const getDeptData = async () =>{
+    await RequestAxios.requestData("/api/common/deptMnt/list", null, "GET")
+  }
+
+
   /*
   useEffect(()=>{}, [])에서 배열에 값을 넣을 경우
   처음에 마운트 될 때와 해당 값이 업데이트 될 때마다 함수가
@@ -158,20 +163,15 @@ const MoreInfomation = (props) => {
               
             </Descriptions.Item>
             <Descriptions.Item label="소속 부서" style={{textAlign:'center'}}>
-            <input
-                readOnly
-                className="user-info-input-default"
-                type="text"
-                placeholder={deptNm}
-                />
+              {/* 결국 옵션을 반복문을 돌려야한다. */}
+              <select disabled>
+                <option value={deptNm}>{deptNm}</option>
+              </select>
             </Descriptions.Item>
             <Descriptions.Item label="소속 팀" style={{textAlign:'center'}}>
-            <input
-                readOnly
-                className="user-info-input-default"
-                type="text"
-                placeholder={deptDtNm}
-                />
+              <select disabled>
+                <option value={deptDtNm}>{deptDtNm}</option>
+              </select>
             </Descriptions.Item>
             <Descriptions.Item label="성별" style={{textAlign:'center'}}>
             <input

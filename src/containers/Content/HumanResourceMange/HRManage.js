@@ -27,6 +27,7 @@ class HRManage extends Component {
         data: res,
         list: res,
       });
+      console.log(res)
     });
   }
 

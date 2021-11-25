@@ -18,7 +18,7 @@ class RequestAxios {
             return await this.sendResponseData(response);
     }
 
-    static requestData = async (url, data, method, headers) =>{
+    static requestData = async (url, data, method) =>{
 
         //일단은 GET방식은 추가적인 파라미터가 없다고 생각하고 코드를 짬
         if(method === this.GET){
@@ -30,7 +30,7 @@ class RequestAxios {
         }
         else if(method === this.POST){
           //POST 방식
-          const response = await Axios.post(url,data,headers
+          const response = await Axios.post(url,data
           ).then(response => response).catch(error => {console.log(error)})
           
                 return await this.sendResponseData(response);

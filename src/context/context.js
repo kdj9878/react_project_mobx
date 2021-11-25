@@ -34,3 +34,22 @@ export const userContexts = [
 ];
 
 
+
+
+export const inputAttr = {
+
+  default : {
+    readOnly : true,
+    className : "user-info-input-default",
+    buttonNm : "수정"
+
+  },
+  modState : {
+    readOnly : false,
+    className : "user-info-input-mod",
+    buttonNm : "저장"
+  }
+}
+
+
+

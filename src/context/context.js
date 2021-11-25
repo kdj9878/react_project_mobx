@@ -60,9 +60,5 @@ export const defInputsState = {
     userNickNameValue : "",
     userEmailValue : "",
     userPhValue : "",
-    deptNmValue : "",
-    deptDtNmValue : "",
-    userGenderValue : "",
     userAddrValue : "",
-    userDescValue : ""
 }

@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect} from 'react';
 import { Modal, Button, Descriptions } from 'antd';
 import RequestAxios from '../../../service/RequestAxios'
 //Input태그 기본 속성
 import { inputAttr } from '../../../context/context';
 //Input태그 value 기본 속성
 import { defInputsState } from '../../../context/context';
+//Select태그 기본 속성
+import { selectTagState } from '../../../context/context';
 
 const MoreInfomation = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -14,18 +16,28 @@ const MoreInfomation = (props) => {
   /* Input태그 속성 상태관리 */
   const [isInputTagAttr, setIsInputTagAttr] = useState([inputAttr.default, inputAttr.buttonState.default])
   
+  /* Select태그 상태관리 */
+  const [isSelectTagState, setIsSelectTagState] = useState(selectTagState);
+
+  
   /* 사용할 데이터 비구조화 할당 */
-  const {userNickname, userEmail, userPh, deptNm, deptDtNm, userGender, userAddr, userDesc} = props.data;
-  const {userNickNameValue, userEmailValue, userPhValue, userAddrValue} = inputs;
+  const { userNickname, userEmail, userPh, deptNo, deptNm, deptDtNm, userGender, userAddr, userDesc } = props.data;
+  const { userNickNameValue, userEmailValue, userPhValue, userAddrValue } = inputs;
+  /* Select태그 부서 선택 상태관리 */
+  const [isDeptSelectState, setIsDeptSelectState] = useState({deptNo : deptNo})
 
-  useEffect( () =>{
-    console.log(props)
-  }, [isInputTagAttr])
+  
+  useEffect( () => {
+    if(props.arrayData[0] !== null && props.arrayData[1] !== null){
+      const deptArray = props.arrayData[0].deptArray;
+      const deptDtArray = props.arrayData[1].deptDtArray;
+      setIsSelectTagState({
+        deptArray : deptArray,
+        deptDtArray : deptDtArray
+      })
+    }
+  }, [isModalVisible, isDeptSelectState])
  
-
-  const getDeptData = async () =>{
-    await RequestAxios.requestData("/api/common/deptMnt/list", null, "GET")
-  }
 
 
   /*
@@ -44,6 +56,7 @@ const MoreInfomation = (props) => {
       }
     }
     else {
+      // eslint-disable-next-line
       var confirm = window.confirm("수정한 데이터를 저장하시겠습니까?");
       if(confirm){
         const userId = {
@@ -60,6 +73,48 @@ const MoreInfomation = (props) => {
           })
       }
     }
+  }
+
+  /* 부서 Select태그 옵션 반복문 */
+  const repeatDeptSelectTag = (array) =>{
+    const result = [];
+    for (let i = 0; i < array.length; i++) {
+      if(array[i].deptNo !== null || array[i].deptNo !== undefined){
+        result.push(
+          <option key={i} value={array[i].deptNo}>{array[i].deptNm}</option>
+          )
+      }
+    }
+    return result;
+  }
+
+  /* 팀 Select태그 옵션 반복문 */
+  const repeatDeptDtSelectTag = (array) =>{
+    const result = [];
+    for (let i = 0; i < array.length;i++) {
+      if((array[i].deptNo !== null && array[i].deptNo !== undefined)){
+        if(isDeptSelectState.deptNo === Number(array[i].dermyCol)){
+          result.push(
+            <option key={i} value={array[i].deptNo}>{array[i].deptNm}</option>
+          )
+        }
+      }
+    }
+    return result;
+  }
+
+  /* 부서 선택 Select태그 선택 시 속성 변경 */
+  const selectDept = (e) =>{
+    const { name, value } = e.target;
+    setIsDeptSelectState({
+      ...isDeptSelectState,
+      [name] : Number(value)
+    })
+  }
+
+  /* 팀 선택 Select태그 선택 시 속성 변경 */
+  const selectDeptDt = (e) =>{
+
   }
 
   const onChange = (e) =>{
@@ -163,15 +218,24 @@ const MoreInfomation = (props) => {
               
             </Descriptions.Item>
             <Descriptions.Item label="소속 부서" style={{textAlign:'center'}}>
-              {/* 결국 옵션을 반복문을 돌려야한다. */}
-              <select disabled>
-                <option value={deptNm}>{deptNm}</option>
-              </select>
+              {
+                isSelectTagState.deptArray !== null
+                ?
+                <select name="deptNo" disabled={isInputTagAttr[1] === 1 ? false : true} defaultValue={deptNm} onChange={selectDept}>
+                  {repeatDeptSelectTag(isSelectTagState.deptArray)}
+                </select>
+                :null
+              }
             </Descriptions.Item>
             <Descriptions.Item label="소속 팀" style={{textAlign:'center'}}>
-              <select disabled>
-                <option value={deptDtNm}>{deptDtNm}</option>
-              </select>
+              {
+                isSelectTagState.deptDtArray !== null
+                ?
+                <select name="deptDtNo" disabled={isInputTagAttr[1] === 1 ? false : true} defaultValue={deptDtNm} onChange={selectDeptDt}>
+                  {repeatDeptDtSelectTag(isSelectTagState.deptDtArray)}
+                </select>
+                :null
+                }
             </Descriptions.Item>
             <Descriptions.Item label="성별" style={{textAlign:'center'}}>
             <input

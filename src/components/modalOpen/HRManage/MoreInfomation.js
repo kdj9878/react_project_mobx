@@ -37,7 +37,7 @@ const MoreInfomation = (props) => {
         deptDtArray : deptDtArray
       })
     }
-    console.log(isDeptSelectState)
+    console.log(props)
   }, [isModalVisible, isDeptSelectState])
  
 
@@ -64,8 +64,9 @@ const MoreInfomation = (props) => {
         const userId = {
           userId : props.data.userId
         }
+        const changeDeptValue = isDeptSelectState;
         // 사용자가 변경한 값에 userId 객체를 추가
-        const sendData = Object.assign(inputs, userId)
+        const sendData = Object.assign(inputs, userId, changeDeptValue)
         await RequestAxios.requestData(
           '/api/user/infoChange',
           sendData,
@@ -110,8 +111,6 @@ const MoreInfomation = (props) => {
   const selectDept = (e) =>{
     const { name, value } = e.target;
     const { deptDtArray } = isSelectTagState;
-    console.log(name, value)
-    console.log(deptDtArray)
     var deptDtCode;
     for(let i = 0; i < deptDtArray.length; i++){
       if(deptDtArray[i].dermyCol === value){

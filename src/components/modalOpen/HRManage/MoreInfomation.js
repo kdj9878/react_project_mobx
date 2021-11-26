@@ -25,7 +25,7 @@ const MoreInfomation = (props) => {
   const { userNickNameValue, userEmailValue, userPhValue, userAddrValue } = inputs;
 
   /* Select태그 부서 선택 상태관리 */
-  const [isDeptSelectState, setIsDeptSelectState] = useState({deptNo : deptNo})
+  const [isDeptSelectState, setIsDeptSelectState] = useState({deptNo : deptNo, deptDtCode : ""})
 
   
   useEffect( () => {
@@ -37,6 +37,7 @@ const MoreInfomation = (props) => {
         deptDtArray : deptDtArray
       })
     }
+    console.log(isDeptSelectState)
   }, [isModalVisible, isDeptSelectState])
  
 
@@ -108,15 +109,30 @@ const MoreInfomation = (props) => {
   /* 부서 선택 Select태그 선택 시 속성 변경 */
   const selectDept = (e) =>{
     const { name, value } = e.target;
+    const { deptDtArray } = isSelectTagState;
+    console.log(name, value)
+    console.log(deptDtArray)
+    var deptDtCode;
+    for(let i = 0; i < deptDtArray.length; i++){
+      if(deptDtArray[i].dermyCol === value){
+        deptDtCode = deptDtArray[i].deptNo;
+        break;
+      }
+    }
     setIsDeptSelectState({
       ...isDeptSelectState,
-      [name] : Number(value)
+      [name] : Number(value),
+      deptDtCode : deptDtCode
     })
   }
 
   /* 팀 선택 Select태그 선택 시 속성 변경 */
   const selectDeptDt = (e) =>{
-
+    const { name, value} = e.target;
+    setIsDeptSelectState({
+      ...isDeptSelectState,
+      [name] : value
+    })
   }
 
   /* Input태그에서 값을 입력할 경우 State에 자동으로 저장 */
@@ -234,7 +250,7 @@ const MoreInfomation = (props) => {
               {
                 isSelectTagState.deptDtArray !== null
                 ?
-                <select name="deptDtNo" disabled={isInputTagAttr[1] === 1 ? false : true} defaultValue={deptDtNm} onChange={selectDeptDt}>
+                <select name="deptDtCode" disabled={isInputTagAttr[1] === 1 ? false : true} defaultValue={deptDtNm} onChange={selectDeptDt}>
                   {repeatDeptDtSelectTag(isSelectTagState.deptDtArray)}
                 </select>
                 :null

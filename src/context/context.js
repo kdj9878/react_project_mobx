@@ -55,10 +55,16 @@ export const inputAttr = {
 }
 
 /* Input태그 value 상태관리 */
-
 export const defInputsState = {
     userNickNameValue : "",
     userEmailValue : "",
     userPhValue : "",
     userAddrValue : "",
+}
+
+
+/* 부서 및 팀 Select태그 상태관리 */
+export const selectTagState = {
+  deptArray : null,
+  deptDtArray : null
 }

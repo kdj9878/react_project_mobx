@@ -53,9 +53,11 @@ class HRManage extends Component {
           const deptArray = [];
           const deptDtArray = [];
           res.map( value => {
+            //부서 배열은 dermyCol이 전부 0으로 되어있음
             if(value.dermyCol === '0'){
               deptArray.push(value);
             }
+            //따라서 여기에는 팀에 관련된 row가 push됨
             else{
               deptDtArray.push(value);
             }

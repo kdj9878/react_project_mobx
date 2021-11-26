@@ -23,6 +23,7 @@ const MoreInfomation = (props) => {
   /* 사용할 데이터 비구조화 할당 */
   const { userNickname, userEmail, userPh, deptNo, deptNm, deptDtNm, userGender, userAddr, userDesc } = props.data;
   const { userNickNameValue, userEmailValue, userPhValue, userAddrValue } = inputs;
+
   /* Select태그 부서 선택 상태관리 */
   const [isDeptSelectState, setIsDeptSelectState] = useState({deptNo : deptNo})
 
@@ -62,6 +63,7 @@ const MoreInfomation = (props) => {
         const userId = {
           userId : props.data.userId
         }
+        // 사용자가 변경한 값에 userId 객체를 추가
         const sendData = Object.assign(inputs, userId)
         await RequestAxios.requestData(
           '/api/user/infoChange',
@@ -117,6 +119,7 @@ const MoreInfomation = (props) => {
 
   }
 
+  /* Input태그에서 값을 입력할 경우 State에 자동으로 저장 */
   const onChange = (e) =>{
     const { name, value } = e.target
     setInputs({

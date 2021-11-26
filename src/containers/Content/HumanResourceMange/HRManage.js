@@ -9,33 +9,59 @@ const count = 5;
 
 class HRManage extends Component {
 
+
   state = {
     initLoading: true,
     loading: false,
     data: [],
     list: [],
+    deptArray : null,
+    deptDtArray : null
   };
 
-  openModal = (item) =>{
-      console.log(item);
-  }
+  // openModal = (item) =>{
+  //   console.log(item);
+  // }
 
   componentDidMount() {
-    this.getData(res => {
+    this.getDeptData((deptArray, deptDtArray) =>{
+      this.setState({
+        deptArray : deptArray,
+        deptDtArray : deptDtArray
+      })
+    })
+    this.getUserData(res => {
       this.setState({
         initLoading: false,
         data: res,
         list: res,
       });
-      console.log(res)
     });
+    
   }
 
-  getData = async (callBack) =>{
+  getUserData = async (callBack) =>{
     await RequestAxios.requestData('/api/user/list', null, "GET")
-      .then(res =>{
-        callBack(res)
+          .then(res =>{
+          callBack(res)
     });
+  }
+  
+  getDeptData = async (callBack) =>{
+    await RequestAxios.requestData('/api/common/deptMnt/list', null, "GET")
+          .then(res => {
+          const deptArray = [];
+          const deptDtArray = [];
+          res.map( value => {
+            if(value.dermyCol === '0'){
+              deptArray.push(value);
+            }
+            else{
+              deptDtArray.push(value);
+            }
+          })
+          callBack({deptArray : deptArray}, {deptDtArray : deptDtArray})
+    })
   }
 
   updateList = (updatedList) => {
@@ -69,8 +95,7 @@ class HRManage extends Component {
   };
 
   render() {
-    const { initLoading, loading, list } = this.state;
-
+    const { initLoading, loading, list, deptArray, deptDtArray } = this.state;
     //처음 state가 init 되었을 때 console이 찍히고
     //setState가 되면 새로운 props를 가지게 되므로 다시 랜더링이 되게 된다.
 
@@ -101,7 +126,13 @@ class HRManage extends Component {
         dataSource={list}
         renderItem={item => (
           <List.Item
-             actions={[ <MoreInfomation data={item} updateList={this.updateList} />]}
+             actions={[ 
+             <MoreInfomation 
+              data={item}
+              updateList={this.updateList}
+              arrayData = {[deptArray, deptDtArray]}
+              />
+            ]}
           >
             <Skeleton avatar title={false} loading={item.loading} active>
               <List.Item.Meta

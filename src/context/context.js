@@ -34,3 +34,37 @@ export const userContexts = [
 ];
 
 
+export const inputAttr = {
+
+  default : {
+    readOnly : true,
+    className : "user-info-input-default",
+    buttonNm : "수정",
+
+  },
+  modState : {
+    readOnly : false,
+    className : "user-info-input-mod",
+    buttonNm : "저장",
+  },
+  buttonState :{
+    default : 0,
+    modState : 1
+  }
+  
+}
+
+/* Input태그 value 상태관리 */
+export const defInputsState = {
+    userNickNameValue : "",
+    userEmailValue : "",
+    userPhValue : "",
+    userAddrValue : "",
+}
+
+
+/* 부서 및 팀 Select태그 상태관리 */
+export const selectTagState = {
+  deptArray : null,
+  deptDtArray : null
+}

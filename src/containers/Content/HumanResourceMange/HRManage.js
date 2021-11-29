@@ -53,7 +53,7 @@ class HRManage extends Component {
           const deptArray = [];
           const deptDtArray = [];
           res.map( value => {
-            //부서 배열은 dermyCol이 전부 0으로 되어있음
+            //부서 배열은 dermyCol이 전부 0으로 되어있음 잔디확인
             if(value.dermyCol === '0'){
               deptArray.push(value);
             }
